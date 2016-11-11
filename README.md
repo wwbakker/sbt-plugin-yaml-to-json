@@ -18,7 +18,7 @@ pairs in YamlToJson := Seq(new File("api.yaml")->new File("target/api.json"))
 ```
 
 Now, in your project you can call `yaml-to-json:convert` to convert the configured files.
-```sbt
+```
 > yaml-to-json:convert
 [info] Converting 'api.yaml' to 'target/api.json'.
 [success] Total time: 0 s, completed 11-nov-2016 11:27:57
