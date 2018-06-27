@@ -1,1 +1,1 @@
-addSbtPlugin("nl.rsg.teamaanvragen" % "sbt-yaml-to-json" % sys.props("project.version"))
+addSbtPlugin("nl.wwbakker" % "sbt-yaml-to-json" % sys.props("plugin.version"))

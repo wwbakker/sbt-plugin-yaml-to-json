@@ -3,6 +3,6 @@
 # make sure the api.json doesn't exist yet
 -$ exists target/api.json
 # do conversion
-> yaml-to-json:convert
+> yaml-to-json:yamlToJsonConvert
 # make sure it exists after conversion
 $ exists target/api.json

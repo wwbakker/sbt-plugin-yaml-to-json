@@ -1,3 +1,1 @@
-libraryDependencies += "org.scala-sbt" % "scripted-plugin" % sbtVersion.value
-
-addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8.3")
+addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.4")

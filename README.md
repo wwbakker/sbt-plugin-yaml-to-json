@@ -1,47 +1,59 @@
-# sbt plugin for converting json to yaml
+# sbt plugin for converting yaml to json
 
 ## Introduction
 Provides a way for sbt to convert *.yaml files to *.json files.
 ## Usage
-To get this to work, first import the plugin into your project. Create or use
+Add the plugin to your project.
 a `[yoursbtproject]/project/plugins.sbt` file. In there add:
 ```sbt
-addSbtPlugin("nl.rsg.teamaanvragen" % "sbt-yaml-to-json" % "1.0-SNAPSHOT")
+addSbtPlugin("nl.wwbakker" % "sbt-yaml-to-json" % "1.0")
 ```
-Then, in your `[yoursbtproject]/build.sbt` file, enable the plugin:
+Configure which files to convert:
 ```sbt
-lazy val root = (project in file(".")).enablePlugins(YamlToJsonPlugin)
-```
-Finally, configure which files to convert:
-```sbt
-pairs in YamlToJson := Seq(new File("api.yaml")->new File("target/api.json"))
+yamlToJsonPairs in YamlToJson := Seq(new File("api.yaml")->new File("target/api.json"))
 ```
 
 Now, in your project you can call `yaml-to-json:convert` to convert the configured files.
 ```
-> yaml-to-json:convert
-[info] Converting 'api.yaml' to 'target/api.json'.
-[success] Total time: 0 s, completed 11-nov-2016 11:27:57
+> yaml-to-json:yamlToJsonConvert
+[info] [info] Converting 'api.yaml' to 'target\api.json'.
+[info] [success] Total time: 0 s, completed 27-jun-2018 19:05:10
 ```
 ## Run plugin test-suite
 To run the testsuite for this code, start sbt and run the scripted command.
-```
-./bin/activator
-[info] Loading project definition from sbt-plugin-yaml-to-json/
-[info] Set current project to sbt-yaml-to-json (in build file:/sbt-plugin-yaml-to-json/)
-> scripted
-[info] Wrote sbt-plugin-yaml-to-json/target/scala-2.10/sbt-0.13/sbt-yaml-to-json-1.0-SNAPSHOT.pom
-[info] :: delivering :: nl.rsg.teamaanvragen#sbt-yaml-to-json;1.0-SNAPSHOT :: 1.0-SNAPSHOT :: integration :: Fri Nov 11 11:40:20 CET 2016
-[info]  delivering ivy file to sbt-plugin-yaml-to-json/target/scala-2.10/sbt-0.13/ivy-1.0-SNAPSHOT.xml
-[info] Packaging sbt-plugin-yaml-to-json/target/scala-2.10/sbt-0.13/sbt-yaml-to-json-1.0-SNAPSHOT.jar ...
+```sbt
+sbt:sbt-yaml-to-json> scripted
+[info] Packaging sbt-yaml-to-json-1.0-SNAPSHOT.jar ...
 [info] Done packaging.
-[info]  published sbt-yaml-to-json to ~/.ivy2/local/nl.rsg.teamaanvragen/sbt-yaml-to-json/scala_2.10/sbt_0.13/1.0-SNAPSHOT/poms/sbt-yaml-to-json.pom
-[info]  published sbt-yaml-to-json to ~/.ivy2/local/nl.rsg.teamaanvragen/sbt-yaml-to-json/scala_2.10/sbt_0.13/1.0-SNAPSHOT/jars/sbt-yaml-to-json.jar
-[info]  published sbt-yaml-to-json to ~/.ivy2/local/nl.rsg.teamaanvragen/sbt-yaml-to-json/scala_2.10/sbt_0.13/1.0-SNAPSHOT/srcs/sbt-yaml-to-json-sources.jar
-[info]  published sbt-yaml-to-json to ~/.ivy2/local/nl.rsg.teamaanvragen/sbt-yaml-to-json/scala_2.10/sbt_0.13/1.0-SNAPSHOT/docs/sbt-yaml-to-json-javadoc.jar
-[info]  published ivy to ~/.ivy2/local/nl.rsg.teamaanvragen/sbt-yaml-to-json/scala_2.10/sbt_0.13/1.0-SNAPSHOT/ivys/ivy.xml
+[info] :: delivering :: nl.wwbakker#sbt-yaml-to-json;1.0-SNAPSHOT :: 1.0-SNAPSHOT :: integration :: Wed Jun 27 19:04:52 CEST 2018
+[info]  delivering ivy file to .\sbt-plugin-yaml-to-json\target\scala-2.12\sbt-1.0\ivy-1.0-SNAPSHOT.xml
+[info]  published sbt-yaml-to-json to C:\Users\Wessel\.ivy2\local\nl.wwbakker\sbt-yaml-to-json\scala_2.12\sbt_1.0\1.0-SNAPSHOT\jars\sbt-yaml-to-json.jar
+[info]  published sbt-yaml-to-json to C:\Users\Wessel\.ivy2\local\nl.wwbakker\sbt-yaml-to-json\scala_2.12\sbt_1.0\1.0-SNAPSHOT\srcs\sbt-yaml-to-json-sources.jar
+[info]  published sbt-yaml-to-json to C:\Users\Wessel\.ivy2\local\nl.wwbakker\sbt-yaml-to-json\scala_2.12\sbt_1.0\1.0-SNAPSHOT\docs\sbt-yaml-to-json-javadoc.jar
+[info]  published ivy to C:\Users\Wessel\.ivy2\local\nl.wwbakker\sbt-yaml-to-json\scala_2.12\sbt_1.0\1.0-SNAPSHOT\ivys\ivy.xml
 Running sbt-plugin-yaml-to-json / yaml-to-json-convert
-[success] Total time: 17 s, completed 11-nov-2016 11:40:37
+[error] Getting org.fusesource.jansi jansi 1.11  (this may take some time)...
+[info] :: retrieving :: org.scala-sbt#boot-jansi
+[info]  confs: [default]
+[info]  1 artifacts copied, 0 already retrieved (111kB/18ms)
+[error] Getting org.scala-sbt sbt 1.1.6  (this may take some time)...
+[info] :: retrieving :: org.scala-sbt#boot-app
+[info]  confs: [default]
+[info]  76 artifacts copied, 0 already retrieved (27669kB/1758ms)
+[error] Getting Scala 2.12.6 (for sbt)...
+[info] :: retrieving :: org.scala-sbt#boot-scala
+[info]  confs: [default]
+[info]  5 artifacts copied, 0 already retrieved (19632kB/64ms)
+[info] [info] Loading settings from plugins.sbt ...
+[info] [info] Loading project definition from C:\Users\Wessel\AppData\Local\Temp\sbt_ff6bc1b6\yaml-to-json-convert\project
+[info] [info] Updating ProjectRef(uri("file:/C:/Users/Wessel/AppData/Local/Temp/sbt_ff6bc1b6/yaml-to-json-convert/project/"), "yaml-to-json-convert-build")...
+[info] [warn] Choosing local for nl.wwbakker#sbt-yaml-to-json;1.0-SNAPSHOT
+[info] [info] Done updating.
+[info] [info] Loading settings from build.sbt ...
+[info] [info] Set current project to root (in build file:/C:/Users/Wessel/AppData/Local/Temp/sbt_ff6bc1b6/yaml-to-json-convert/)
+[info] [success] Total time: 0 s, completed 27-jun-2018 19:05:10
+[info] [info] Converting 'api.yaml' to 'target\api.json'.
+[info] [success] Total time: 0 s, completed 27-jun-2018 19:05:10
+[info] + sbt-plugin-yaml-to-json / yaml-to-json-convert
+[success] Total time: 19 s, completed 27-jun-2018 19:05:11
 ```
-This means that the test succeeded. For more informationa about testing sbt plugins:
-http://eed3si9n.com/testing-sbt-plugins

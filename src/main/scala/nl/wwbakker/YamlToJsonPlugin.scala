@@ -1,4 +1,4 @@
-package nl.rsg.teamaanvragen
+package nl.wwbakker
 
 import sbt._
 import sbt.Keys.streams
@@ -11,20 +11,20 @@ import org.yaml.snakeyaml.Yaml
  * This plugin helps you which operating systems are awesome
  */
 object YamlToJsonPlugin extends AutoPlugin {
+  override def trigger = allRequirements
 
   /**
    * Defines all settings/tasks that get automatically imported,
    * when the plugin is enabled
    */
   object autoImport {
-    val YamlToJson : Configuration = Configuration("yaml-to-json", "YamlToJson specific properties", isPublic=true, Nil, transitive=true)
+    lazy val YamlToJson : Configuration = config("yaml-to-json")
 
-    val convert = taskKey[Unit]("task for converting yaml to json")
-    val pairs = settingKey[Seq[Tuple2[File, File]]]("Input YAML and output JSON files as pairs.")
-
+    lazy val yamlToJsonConvert = taskKey[Unit]("task for converting yaml to json")
+    lazy val yamlToJsonPairs = settingKey[Seq[(File, File)]]("Input YAML and output JSON files as pairs.")
     lazy val baseYamlToJsonSettings : Seq[Def.Setting[_]] = Seq(
-      pairs := Nil,
-      convert := yamlToJsonImpl.value
+      yamlToJsonPairs := Nil,
+      yamlToJsonConvert := yamlToJsonImpl.value
     )
   }
 
@@ -32,7 +32,7 @@ object YamlToJsonPlugin extends AutoPlugin {
 
   lazy val yamlToJsonImpl : Def.Initialize[Task[Unit]] = Def.task {
     val s = streams.value
-    pairs.value.foreach {
+    yamlToJsonPairs.value.foreach {
       case (inputFile, _) if !inputFile.exists() =>
         s.log.error("Cannot convert Yaml to Json. Input file does not exist at '" + inputFile.toString + "'")
       case (inputFile, outputFile) =>
@@ -44,7 +44,7 @@ object YamlToJsonPlugin extends AutoPlugin {
         IO.write(outputFile, jsonString.getBytes("utf-8"))
     }
 
-    if (pairs.value.isEmpty)
+    if (yamlToJsonPairs.value.isEmpty)
       s.log.warn("No yaml files to convert. Property 'yamlAndJsonPairs' is not set.")
   }
 
