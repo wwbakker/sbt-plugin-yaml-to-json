@@ -6,6 +6,7 @@ Provides a way for sbt to convert *.yaml files to *.json files.
 Add the plugin to your project.
 a `[yoursbtproject]/project/plugins.sbt` file. In there add:
 ```sbt
+resolvers += Resolver.bintrayIvyRepo("wwbakker", "sbt-plugins")
 addSbtPlugin("nl.wwbakker" % "sbt-yaml-to-json" % "1.0")
 ```
 Configure which files to convert:
